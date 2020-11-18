@@ -147,7 +147,7 @@ struct io_obj *io_new_obj(int, int, ssize_t (*)(int, void *, size_t), size_t);
 
 #define io_new_source(x)	io_new_obj(x, IOTYPE_SOURCE, read, IO_BLOCKSIZE)
 #define io_new_sink(x)		io_new_obj(x, IOTYPE_SINK, \
-					(ssize_t (*)())write, \
+					(ssize_t (*)(int, void *, size_t))write, \
 					IO_BLOCKSIZE)
 
 struct io_obj *io_new_listener(char *, short);

@@ -791,7 +791,8 @@ io_new_duplex(int fd, ssize_t (*mthd_read)(int, void *, size_t),
 int
 io_attach_hdr(struct io_header *first, struct io_header *second)
 {
-	struct io_list *lst_p, *lst_c;
+	struct io_list *
+			lst_p, *lst_c;
 
 	if ((lst_p = malloc(sizeof(struct io_list))) == NULL)
 		return (-1);
