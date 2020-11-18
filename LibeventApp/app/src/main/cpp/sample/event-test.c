@@ -190,7 +190,7 @@ main0 (int argc, const char *path)
 	
 	event_dispatch();
 #ifdef ANDROID
-	//TODO close(fd); //must close at last.
+	close(fd); //must close at last.
 #elif WIN32
 	CloseHandle(fd);
 #endif

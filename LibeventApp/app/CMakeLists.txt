@@ -14,6 +14,9 @@ add_library(
         SHARED
         src/main/cpp/sample/event-test.c
         src/main/cpp/sample/main_jni.cpp
+        src/main/cpp/sample/bufevent_server_demo.cpp
+        src/main/cpp/sample/bufevent_client_demo.cpp
+        src/main/cpp/sample/demo.cpp
 )
 
 find_library( # Sets the name of the path variable.
