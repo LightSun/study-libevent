@@ -1,0 +1,93 @@
+/* config.h.in.  Generated automatically from configure.in by autoheader.  */
+
+/* Define if you have the ANSI C header files.  */
+#undef STDC_HEADERS
+
+/* Define if you can safely include both <sys/time.h> and <time.h>.  */
+#undef TIME_WITH_SYS_TIME
+
+/* Define if your system knows about struct sockaddr_storage */
+#undef HAVE_SOCKADDR_STORAGE
+
+/* Define to int if your system does not know about socklen_t */
+#undef socklen_t
+
+/* Define to `unsigned long long' if <sys/types.h> doesn't define.  */
+#undef u_int64_t
+
+/* Define to `unsigned int' if <sys/types.h> doesn't define.  */
+#undef u_int32_t
+
+/* Define to `unsigned short' if <sys/types.h> doesn't define.  */
+#undef u_int16_t
+
+/* Define to `unsigned char' if <sys/types.h> doesn't define.  */
+#undef u_int8_t
+
+/* Undefine if <netdb.h> contains this, otherwise define to 32 */
+#undef NI_MAXSERV
+
+/* Take care of getaddrinfo */
+#undef HAVE_STRUCT_ADDRINFO
+#ifndef HAVE_STRUCT_ADDRINFO
+#include "getaddrinfo.h"
+#endif /* !HAVE_STRUCT_ADDRINFO */
+
+/* Define if timeradd is defined in <sys/time.h> */
+#undef HAVE_TIMERADD
+#ifndef HAVE_TIMERADD
+#define timeradd(tvp, uvp, vvp)                                         \
+        do {                                                            \
+                (vvp)->tv_sec = (tvp)->tv_sec + (uvp)->tv_sec;          \
+                (vvp)->tv_usec = (tvp)->tv_usec + (uvp)->tv_usec;       \
+                if ((vvp)->tv_usec >= 1000000) {                        \
+                        (vvp)->tv_sec++;                                \
+                        (vvp)->tv_usec -= 1000000;                      \
+                }                                                       \
+        } while (0)
+#define timersub(tvp, uvp, vvp)      \
+ do {        \
+  (vvp)->tv_sec = (tvp)->tv_sec - (uvp)->tv_sec;  \
+  (vvp)->tv_usec = (tvp)->tv_usec - (uvp)->tv_usec; \
+  if ((vvp)->tv_usec < 0) {    \
+   (vvp)->tv_sec--;    \
+   (vvp)->tv_usec += 1000000;   \
+  }       \
+ } while (0)
+#endif /* !HAVE_TIMERADD */
+
+/* Define if you have the getaddrinfo function.  */
+#undef HAVE_GETADDRINFO
+
+/* Define if you have the inet_aton function.  */
+#undef HAVE_INET_ATON
+
+/* Define if you have the strlcat function.  */
+#undef HAVE_STRLCAT
+
+/* Define if you have the strlcpy function.  */
+#undef HAVE_STRLCPY
+
+/* Define if you have the warnx function.  */
+#undef HAVE_WARNX
+
+/* Define if you have the <sys/queue.h> header file.  */
+#undef HAVE_SYS_QUEUE_H
+
+/* Define if you have the <sys/time.h> header file.  */
+#undef HAVE_SYS_TIME_H
+
+/* Define if you have the <unistd.h> header file.  */
+#undef HAVE_UNISTD_H
+
+/* Define if you have the socket library (-lsocket).  */
+#undef HAVE_LIBSOCKET
+
+/* Prototypes for missing functions */
+#ifndef HAVE_STRLCAT
+size_t	 strlcat(char *, const char *, size_t);
+#endif
+
+#ifndef HAVE_STRLCPY
+size_t	 strlcpy(char *, const char *, size_t);
+#endif

@@ -30,7 +30,7 @@ void socket_read_cb(bufferevent* bev, void* arg);
 void event_cb(struct bufferevent *bev, short event, void *arg);
 int tcp_server_init(int port, int listen_num);
 
-int main(int argc, char** argv)
+int main_server(int argc, char** argv)
 {
 
     int listener = tcp_server_init(9999, 10);

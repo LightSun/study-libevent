@@ -32,7 +32,7 @@ int tcp_connect_server(const char* server_ip, int port);
 void cmd_msg_cb(int fd, short events, void* arg);
 void socket_read_cb(int fd, short events, void *arg);
 
-int main(int argc, char** argv)
+int main_client(int argc, char** argv)
 {
     if( argc < 3 )
     {
