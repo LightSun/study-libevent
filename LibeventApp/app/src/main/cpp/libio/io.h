@@ -143,12 +143,15 @@ void io_set_timeout(struct io_obj *, int);
 
 void io_terminate(struct io_obj *, int);
 void io_obj_close(struct io_obj *);
-struct io_obj *io_new_obj(int, int, ssize_t (*)(int, void *, size_t), size_t);
 
-#define io_new_source(x)	io_new_obj(x, IOTYPE_SOURCE, read, IO_BLOCKSIZE)
-#define io_new_sink(x)		io_new_obj(x, IOTYPE_SINK, \
+struct io_obj *io_new_obj(struct event_base *,int, int, ssize_t (*)(int, void *, size_t), size_t);
+
+#define io_new_source_base(base, x)	io_new_obj(base, x, IOTYPE_SOURCE, read, IO_BLOCKSIZE)
+#define io_new_sink_base(base, x)		io_new_obj(base, x, IOTYPE_SINK, \
 					(ssize_t (*)(int, void *, size_t))write, \
 					IO_BLOCKSIZE)
+#define io_new_source(x) io_new_source_base(NULL, x)
+#define io_new_sink(x) io_new_sink_base(NULL, x)
 
 struct io_obj *io_new_listener(char *, short);
 struct io_duplex *io_new_connector(char *, short);

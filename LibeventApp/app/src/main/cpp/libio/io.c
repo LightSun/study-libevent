@@ -700,7 +700,7 @@ io_header_init(struct io_header *hdr, int type)
 	TAILQ_INIT(&hdr->ihdr_parent);
 }
 
-struct io_obj *io_new_obj(int fd, int type,
+struct io_obj *io_new_obj(struct event_base * base,int fd, int type,
 						  ssize_t (*method)(int, void *, size_t), size_t blocksize)
 {
 	struct io_obj *obj;
@@ -727,9 +727,18 @@ struct io_obj *io_new_obj(int fd, int type,
 	 */
 	if (type == IOTYPE_SOURCE) {
 		event_set(&obj->io_ev, fd, EV_READ, io_handle_read, obj);
+		//set default base if need
+		if(base != NULL){
+			event_base_set(base, &obj->io_ev);
+		}
 		io_add_event(obj);
-	} else
+	} else{
 		event_set(&obj->io_ev, fd, EV_WRITE, io_handle_write, obj);
+		//set default base if need
+		if(base != NULL){
+			event_base_set(base, &obj->io_ev);
+		}
+	}
 
 	return (obj);
 }

@@ -47,6 +47,7 @@ int
 filter_uppercase(void *arg, struct io_filter *filter, struct io_buffer *buf,
                  int flags)
 {
+    //arg 透传参数
     size_t i, curoff = filter->io_buf.off;
     struct io_buffer *mybuf = &filter->io_buf;
 
@@ -93,10 +94,11 @@ main_libio(int argc, char **argv)
     struct io_obj *src, *dst;
     struct io_filter *filt, *filt2;
 
-    event_init();
+    //event_init();
+    auto pBase = event_base_new();
 
-    src = io_new_source(fileno(stdin));
-    dst = io_new_sink(fileno(stdout));
+    src = io_new_source_base(pBase, fileno(stdin));
+    dst = io_new_sink_base(pBase, fileno(stdout));
     filt = io_new_filter(filter_uppercase, NULL);
     filt2 = io_new_filter(filter_reverse, NULL);
 
@@ -105,7 +107,8 @@ main_libio(int argc, char **argv)
     io_attach(filt, filt2);
     io_attach(filt2, dst);
 
-    event_dispatch();
+    //event_dispatch();
+    event_base_dispatch(pBase);
 
     exit(0);
 }
